@@ -54,7 +54,7 @@ const PROJECTS = [
     image: "/assets/rms-poster-new.jpeg",
     tech: ["Flutter", "Firebase", "Node.js", "MongoDB"],
     demo: "#contact",
-    github: CONTACT.github,
+    github: "https://github.com/huzaifaa-maker/RMS-Rental-Management-System-App-",
     featured: true,
     fit: "contain",
   },
@@ -65,7 +65,7 @@ const PROJECTS = [
     image: "/assets/campus-helper-poster.jpeg",
     tech: ["Flutter", "Firebase", "Node.js", "MongoDB"],
     demo: "#contact",
-    github: CONTACT.github,
+    github: "https://github.com/huzaifaa-maker/Campus-Helper-App-CH-",
     featured: false,
     fit: "contain",
   },
@@ -76,7 +76,7 @@ const PROJECTS = [
     image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=900&h=700&fit=crop&auto=format",
     tech: ["Python", "Flask", "Compiler Design"],
     demo: "#contact",
-    github: CONTACT.github,
+    github: "https://github.com/huzaifaa-maker/Pro-Compiler-In-Python-Compiler-Construction",
     featured: false,
   },
   {
@@ -86,7 +86,7 @@ const PROJECTS = [
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=700&fit=crop&auto=format",
     tech: ["Python", "Streamlit", "Plotly", "NumPy"],
     demo: "#contact",
-    github: CONTACT.github,
+    github: "https://github.com/huzaifaa-maker/parallel_performance_analyzer",
     featured: false,
   },
   {
@@ -96,7 +96,7 @@ const PROJECTS = [
     image: "/assets/portfolio-preview.jpeg",
     tech: ["React", "Vite", "Chakra UI"],
     demo: "#contact",
-    github: CONTACT.github,
+    github: "https://github.com/huzaifaa-maker/Portfolio-React-js-",
     featured: false,
   },
   {
@@ -106,7 +106,7 @@ const PROJECTS = [
     image: "https://images.unsplash.com/photo-1556438064-2d7646166914?w=900&h=700&fit=crop&auto=format",
     tech: ["Unity", "C#", "3D Game"],
     demo: "#contact",
-    github: CONTACT.github,
+    github: "https://github.com/huzaifaa-maker/Unity-3D-Game-JumpQuest-",
     featured: false,
   },
 ];
