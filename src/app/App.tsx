@@ -39,7 +39,7 @@ const CONTACT = {
   facebook: "https://www.facebook.com/share/18wwqEmL9T/",
   fiverr: "https://www.fiverr.com/pe/Dx5QwX",
   whatsapp: "https://wa.me/923195639447?text=Hi%20Huzaifa%2C%20I%20visited%20your%20portfolio%20and%20want%20to%20discuss%20a%20project.",
-  resume: "/assets/Huzaifa-Altaf-CV.pdf",
+  resume: "/assets/Huzaifa-Altaf-Professional-CV.pdf",
 };
 
 const NAV_ITEMS = ["home", "about", "education", "projects", "exhibition", "services", "certificates", "reviews", "resume", "contact"];
@@ -447,7 +447,7 @@ export default function App() {
                     <span>Hire Me</span>
                     <Send className="w-4 h-4" />
                   </button>
-                  <a href={CONTACT.resume} download="Huzaifa-Altaf-CV.pdf" className="btn-secondary w-full max-w-full sm:w-auto">
+                  <a href={CONTACT.resume} download="Huzaifa-Altaf-Professional-CV.pdf" className="btn-secondary w-full max-w-full sm:w-auto">
                     <span>Download CV</span>
                     <Download className="w-4 h-4" />
                   </a>
@@ -708,7 +708,7 @@ export default function App() {
               <h3 className="font-['Space_Grotesk'] text-xl font-bold sm:text-2xl">Huzaifa Altaf</h3>
               <p className="text-muted-foreground mt-2">Full Stack Developer and Flutter App Developer</p>
               <div className="grid grid-cols-1 gap-3 mt-6 sm:flex sm:flex-wrap">
-                <a href={CONTACT.resume} download="Huzaifa-Altaf-CV.pdf" className="btn-primary w-full sm:w-auto">
+                <a href={CONTACT.resume} download="Huzaifa-Altaf-Professional-CV.pdf" className="btn-primary w-full sm:w-auto">
                   Download CV <Download className="w-4 h-4" />
                 </a>
                 <a href={`mailto:${CONTACT.email}`} className="btn-secondary w-full sm:w-auto">
@@ -810,10 +810,6 @@ export default function App() {
             <a href={`mailto:${CONTACT.email}`} className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary">
               <Mail className="h-4 w-4" />
               Email
-            </a>
-            <a href={CONTACT.resume} download="Huzaifa-Altaf-CV.pdf" className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary">
-              <Download className="h-4 w-4" />
-              CV
             </a>
           </div>
         </div>
