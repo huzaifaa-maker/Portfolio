@@ -156,10 +156,10 @@ const SERVICES = [
 ];
 
 const RESUME_POINTS = [
-  "BS Computer Science student at NFC Institute of Engineering and Technology, Multan.",
-  "Focused on Flutter, React, Next.js, Node.js, Firebase, MongoDB, and REST APIs.",
-  "Open to internships, freelance work, startup projects, and software collaborations.",
-  "Strong interest in clean UI, reliable architecture, and client-ready product delivery.",
+  "I design and build mobile apps, websites, dashboards, and backend-connected software with a practical product mindset.",
+  "My strongest work combines Flutter interfaces, React web experiences, Firebase/MongoDB data flows, and clean API integration.",
+  "I turn academic and freelance-style ideas into usable demos with clear screens, working features, and presentable documentation.",
+  "I am ready to support internships, client projects, and collaborations that need dependable development and polished delivery.",
 ];
 
 const EDUCATION = [
@@ -472,7 +472,7 @@ export default function App() {
                     <Send className="w-4 h-4" />
                   </button>
                   <button type="button" onClick={openCv} className="btn-secondary w-full max-w-full sm:w-auto">
-                    <span>Download CV</span>
+                    <span>Preview CV</span>
                     <Download className="w-4 h-4" />
                   </button>
                 </div>
@@ -733,7 +733,7 @@ export default function App() {
               <p className="text-muted-foreground mt-2">Full Stack Developer and Flutter App Developer</p>
               <div className="grid grid-cols-1 gap-3 mt-6 sm:flex sm:flex-wrap">
                 <button type="button" onClick={openCv} className="btn-primary w-full sm:w-auto">
-                  Open CV <Download className="w-4 h-4" />
+                  Preview CV <Download className="w-4 h-4" />
                 </button>
                 <a href={`mailto:${CONTACT.email}`} className="btn-secondary w-full sm:w-auto">
                   Email Me <Mail className="w-4 h-4" />
