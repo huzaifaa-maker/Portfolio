@@ -229,6 +229,7 @@ export default function App() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [reviews, setReviews] = useState(DEFAULT_REVIEWS);
   const [reviewForm, setReviewForm] = useState({ name: "", role: "", rating: 5, message: "" });
+  const [cvPreviewOpen, setCvPreviewOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
@@ -272,6 +273,25 @@ export default function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!cvPreviewOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setCvPreviewOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [cvPreviewOpen]);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
@@ -291,10 +311,7 @@ export default function App() {
   };
 
   const openCv = () => {
-    const opened = window.open(CONTACT.resume, "_blank", "noopener,noreferrer");
-    if (!opened) {
-      window.location.href = CONTACT.resume;
-    }
+    setCvPreviewOpen(true);
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -822,6 +839,8 @@ export default function App() {
         </div>
       </footer>
 
+      {cvPreviewOpen && <CvPreviewModal onClose={() => setCvPreviewOpen(false)} />}
+
       <motion.a
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -856,6 +875,43 @@ function ThemeButton({ darkMode, onClick }: { darkMode: boolean; onClick: () => 
     <button onClick={onClick} className="p-2 rounded-lg border border-border hover:bg-secondary transition-colors" aria-label="Toggle dark mode">
       {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
     </button>
+  );
+}
+
+function CvPreviewModal({ onClose }: { onClose: () => void }) {
+  const openInNewTab = () => {
+    window.open(CONTACT.resume, "_blank", "noopener,noreferrer");
+  };
+
+  return (
+    <div className="fixed inset-0 z-[80] bg-background/85 p-3 backdrop-blur-xl sm:p-5" role="dialog" aria-modal="true" aria-label="CV preview">
+      <div className="mx-auto flex h-full max-w-6xl flex-col overflow-hidden rounded-lg border border-border bg-card shadow-2xl">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border p-3 sm:p-4">
+          <div>
+            <p className="font-['Space_Grotesk'] text-lg font-bold sm:text-xl">Huzaifa Altaf CV</p>
+            <p className="text-xs text-muted-foreground sm:text-sm">Preview inside the portfolio</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <a href={CONTACT.resume} download="Huzaifa-Altaf-Professional-CV.pdf" className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary sm:text-sm">
+              <Download className="h-4 w-4" />
+              <span className="hidden sm:inline">Download</span>
+            </a>
+            <button type="button" onClick={openInNewTab} className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary sm:text-sm">
+              <ExternalLink className="h-4 w-4" />
+              <span className="hidden sm:inline">New tab</span>
+            </button>
+            <button type="button" onClick={onClose} className="inline-flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 sm:text-sm" aria-label="Close CV preview">
+              <X className="h-4 w-4" />
+              Close
+            </button>
+          </div>
+        </div>
+
+        <div className="min-h-0 flex-1 bg-background">
+          <iframe title="Huzaifa Altaf Professional CV" src={`${CONTACT.resume}#toolbar=1&navpanes=0&view=FitH`} className="h-full w-full border-0" />
+        </div>
+      </div>
+    </div>
   );
 }
 
