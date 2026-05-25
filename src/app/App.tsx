@@ -290,6 +290,13 @@ export default function App() {
     document.body.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
+  const openCv = () => {
+    const opened = window.open(CONTACT.resume, "_blank", "noopener,noreferrer");
+    if (!opened) {
+      window.location.href = CONTACT.resume;
+    }
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormSubmitted(true);
@@ -447,10 +454,10 @@ export default function App() {
                     <span>Hire Me</span>
                     <Send className="w-4 h-4" />
                   </button>
-                  <a href={CONTACT.resume} target="_blank" rel="noopener noreferrer" className="btn-secondary w-full max-w-full sm:w-auto">
+                  <button type="button" onClick={openCv} className="btn-secondary w-full max-w-full sm:w-auto">
                     <span>Download CV</span>
                     <Download className="w-4 h-4" />
-                  </a>
+                  </button>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
@@ -708,9 +715,9 @@ export default function App() {
               <h3 className="font-['Space_Grotesk'] text-xl font-bold sm:text-2xl">Huzaifa Altaf</h3>
               <p className="text-muted-foreground mt-2">Full Stack Developer and Flutter App Developer</p>
               <div className="grid grid-cols-1 gap-3 mt-6 sm:flex sm:flex-wrap">
-                <a href={CONTACT.resume} target="_blank" rel="noopener noreferrer" className="btn-primary w-full sm:w-auto">
+                <button type="button" onClick={openCv} className="btn-primary w-full sm:w-auto">
                   Open CV <Download className="w-4 h-4" />
-                </a>
+                </button>
                 <a href={`mailto:${CONTACT.email}`} className="btn-secondary w-full sm:w-auto">
                   Email Me <Mail className="w-4 h-4" />
                 </a>
