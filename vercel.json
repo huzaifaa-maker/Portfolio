@@ -9,7 +9,24 @@
         },
         {
           "key": "Content-Disposition",
-          "value": "attachment; filename=\"Huzaifa-Altaf-Professional-CV.pdf\""
+          "value": "inline; filename=\"Huzaifa-Altaf-Professional-CV.pdf\""
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/Huzaifa-Altaf-CV.pdf",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"Huzaifa-Altaf-Professional-CV.pdf\""
         },
         {
           "key": "Cache-Control",
