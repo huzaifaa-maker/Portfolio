@@ -256,7 +256,7 @@ def build():
 
     story += section("Projects")
     story += [
-        item("Rental Management System App", "Flutter, Firebase, Node.js, MongoDB", "Rental operations app with dashboards, properties, tenants, rent payments, bills, maintenance, leases, API integration, and exhibition presentation.", "Code", LINKS["rms"]),
+        item("Rental Management System App", "Flutter, Firebase, Node.js, MongoDB", "Rental operations app with dashboards, properties, tenants, rent payments, bills, maintenance, leases, and API integration.", "Code", LINKS["rms"]),
         item("Campus Helper App", "Flutter, Firebase, Node.js, MongoDB", "Campus assistant with authentication, chat, marketplace, cafeteria, library, exams, events, notifications, admin tools, and backend support.", "Code", LINKS["campus"]),
         item("Parallel Performance Analyzer Web App", "Python, Streamlit, Plotly, NumPy", "Analytics app evaluating Prefix Sum and Monte Carlo Integration performance with charts, experiments, and report-style outputs.", "Code", LINKS["parallel"]),
         item("ProCompiler Web App", "Python, Flask, Compiler Design", "Compiler construction project with web interface, lexer/parser logic for a C-like language, and documentation assets.", "Code", LINKS["compiler"]),
@@ -264,18 +264,9 @@ def build():
         item("Portfolio Website", "React, Vite, Tailwind CSS", "Responsive developer portfolio with SEO files, project showcase, certificates, contact form, CV download, and Vercel deployment.", "Code", LINKS["portfolio_repo"]),
     ]
 
-    story += section("Exhibition")
-    story.append(
-        Paragraph(
-            "Presented the Rental Management System at an exhibition in Air University Multan, demonstrating app workflow, dashboard screens, poster context, and rental operations use case to visitors and evaluators.",
-            styles["Body"],
-        )
-    )
-
     story += section("Certificates")
     story += [
         item("Advanced Python Programming and Applications", "NAVTTC | A+ Grade | 26 Feb 2024 - 25 May 2024", "Prime Minister's Youth Skills Development Program at NFC Institute of Engineering and Technology Multan."),
-        item("Class Representative Award Certificate", "NFC Institute of Engineering and Technology Multan | Sept 2024 - June 2025", "Awarded for exceptional service as class representative of the Computer Science section."),
     ]
 
     story += section("Skills")
