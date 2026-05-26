@@ -185,6 +185,12 @@ const EDUCATION = [
 
 const CERTIFICATES = [
   {
+    title: "TechXhibit 2026 Certificate of Appreciation",
+    issuer: "Air University Multan Campus",
+    detail: "Awarded for participating in the Final Year Project Competition at TechXhibit 2026 and showcasing commendable effort, innovation, and technical skills. Dated: May 20, 2026.",
+    image: "/assets/techxhibit-2026-certificate.jpeg",
+  },
+  {
     title: "Class Representative Award Certificate",
     issuer: "NFC Institute of Engineering and Technology Multan",
     detail: "Awarded for exceptional service as class representative from Sept 2024 to June 2025.",
