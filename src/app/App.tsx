@@ -191,6 +191,12 @@ const CERTIFICATES = [
     image: "/assets/techxhibit-2026-certificate.jpeg",
   },
   {
+    title: "International Conference Certificate of Appreciation",
+    issuer: "University Gillani Law College, BZU Multan",
+    detail: "Awarded for participation in the 3rd International Conference on Women's Empowerment, Law, and Justice in Pakistan: Advancing Transformative Leadership and Inclusive Legal Futures.",
+    image: "/assets/women-empowerment-conference-certificate.jpeg",
+  },
+  {
     title: "Class Representative Award Certificate",
     issuer: "NFC Institute of Engineering and Technology Multan",
     detail: "Awarded for exceptional service as class representative from Sept 2024 to June 2025.",
