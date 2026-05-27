@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://huzaifa-altaf-portfolio.vercel.app/sitemap.xml
+Sitemap: https://huzaifa-altaf-portfolio.vercel.app/portfolio-sitemap.xml
