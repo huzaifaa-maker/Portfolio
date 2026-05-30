@@ -40,6 +40,7 @@ const CONTACT = {
   fiverr: "https://www.fiverr.com/pe/Dx5QwX",
   whatsapp: "https://wa.me/923195639447?text=Hi%20Huzaifa%2C%20I%20visited%20your%20portfolio%20and%20want%20to%20discuss%20a%20project.",
   resume: "/assets/Huzaifa-Altaf-Professional-CV.pdf",
+  resumeDownload: "/assets/Huzaifa-Altaf-Professional-CV-Download.pdf",
 };
 
 const NAV_ITEMS = ["home", "about", "education", "projects", "exhibition", "services", "certificates", "reviews", "resume", "contact"];
@@ -230,6 +231,25 @@ const DEFAULT_REVIEWS = [
     message: "The UI is clean, responsive, and easy to scan. Project cards make it clear what he can build for clients.",
   },
 ];
+
+async function downloadCvFile() {
+  try {
+    const response = await fetch(CONTACT.resumeDownload, { cache: "no-store" });
+    if (!response.ok) throw new Error("CV file unavailable");
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Huzaifa-Altaf-Professional-CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch {
+    window.open(CONTACT.resumeDownload, "_blank", "noopener,noreferrer");
+  }
+}
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -483,8 +503,8 @@ export default function App() {
                     <span>Hire Me</span>
                     <Send className="w-4 h-4" />
                   </button>
-                  <button type="button" onClick={openCv} className="btn-secondary w-full max-w-full sm:w-auto">
-                    <span>Preview CV</span>
+                  <button type="button" onClick={downloadCvFile} className="btn-secondary w-full max-w-full sm:w-auto">
+                    <span>Download CV</span>
                     <Download className="w-4 h-4" />
                   </button>
                 </div>
@@ -745,7 +765,10 @@ export default function App() {
               <p className="text-muted-foreground mt-2">Full Stack Developer and Flutter App Developer</p>
               <div className="grid grid-cols-1 gap-3 mt-6 sm:flex sm:flex-wrap">
                 <button type="button" onClick={openCv} className="btn-primary w-full sm:w-auto">
-                  Preview CV <Download className="w-4 h-4" />
+                  Preview CV <ExternalLink className="w-4 h-4" />
+                </button>
+                <button type="button" onClick={downloadCvFile} className="btn-secondary w-full sm:w-auto">
+                  Download CV <Download className="w-4 h-4" />
                 </button>
                 <a href={`mailto:${CONTACT.email}`} className="btn-secondary w-full sm:w-auto">
                   Email Me <Mail className="w-4 h-4" />
@@ -904,10 +927,10 @@ function CvPreviewModal({ onClose }: { onClose: () => void }) {
             <p className="text-xs text-muted-foreground sm:text-sm">Preview inside the portfolio</p>
           </div>
           <div className="flex items-center gap-2">
-            <a href={CONTACT.resume} download="Huzaifa-Altaf-Professional-CV.pdf" className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary sm:text-sm">
+            <button type="button" onClick={downloadCvFile} className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary sm:text-sm">
               <Download className="h-4 w-4" />
               <span className="hidden sm:inline">Download</span>
-            </a>
+            </button>
             <button type="button" onClick={openInNewTab} className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary sm:text-sm">
               <ExternalLink className="h-4 w-4" />
               <span className="hidden sm:inline">New tab</span>
