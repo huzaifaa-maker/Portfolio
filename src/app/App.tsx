@@ -1,5 +1,5 @@
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
-import { motion } from "motion/react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import {
   ArrowRight,
   ArrowUp,
@@ -46,6 +46,8 @@ const CONTACT = {
 const NAV_ITEMS = ["home", "about", "education", "projects", "exhibition", "services", "certificates", "reviews", "resume", "contact"];
 
 const ROLES = ["Full Stack Developer", "Flutter App Developer", "Web Developer", "Software Enthusiast", "Tech Problem Solver", "UI/UX Advocate"];
+const HERO_IMAGE = "/assets/huzaifa-hero-photo.jpeg";
+const LAPTOP_FRAME_COUNT = 240;
 
 const PROJECTS = [
   {
@@ -465,96 +467,78 @@ export default function App() {
       </nav>
 
       <main className="relative overflow-hidden">
-        <section id="home" className="overflow-hidden pt-24 pb-14 sm:pt-28 sm:pb-16 lg:min-h-screen lg:flex lg:items-center">
-          <div className="mx-auto w-full max-w-7xl min-w-0 px-4 sm:px-6 lg:px-8">
-            <div className="grid w-full min-w-0 grid-cols-1 items-center gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12">
-              <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} className="min-w-0 space-y-7 overflow-hidden sm:space-y-8">
-                <div className="inline-flex max-w-full items-center gap-2 rounded-lg border border-primary/20 bg-primary/10 px-3 py-2 text-xs font-medium text-primary sm:text-sm">
-                  <span className="w-2 h-2 rounded-full bg-green-500" />
-                  <span className="min-w-0">Available for internships and freelance work</span>
-                </div>
+        <section id="home" className="cinematic-home relative min-h-screen overflow-hidden scroll-mt-20 bg-[#020202]">
+          <div className="cinematic-grid" />
+          <div className="cinematic-noise" />
+          <HeroProjectVisual />
 
-                <div>
-                  <p className="text-primary font-semibold mb-4">Hello, I am</p>
-                  <h1 className="font-['Space_Grotesk'] text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-normal">
-                    Huzaifa Altaf
-                  </h1>
-                  <div className="min-h-12 mt-5 flex items-center">
-                    <motion.p
-                      key={ROLES[currentRole]}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-xl sm:text-3xl text-muted-foreground font-semibold"
-                    >
-                      {ROLES[currentRole]}
-                    </motion.p>
-                  </div>
-                  <p className="mt-5 max-w-full break-words text-base leading-relaxed text-muted-foreground sm:max-w-xl sm:text-lg">
-                    I build modern mobile and web applications with clean interfaces, practical backend logic, and a strong focus on real-world usefulness.
-                  </p>
-                </div>
+          <div className="pointer-events-none absolute left-5 top-28 z-20 hidden flex-col gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-primary sm:flex lg:left-10">
+            <span>&gt; System online</span>
+            <span>&gt; Portfolio v2.0 initialized</span>
+            <span>&gt; Client-ready build mode</span>
+          </div>
 
-                <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
-                  <button onClick={() => scrollToSection("projects")} className="btn-primary group w-full max-w-full sm:w-auto">
-                    <span>View Projects</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                  <button onClick={() => scrollToSection("contact")} className="btn-secondary w-full max-w-full sm:w-auto">
-                    <span>Hire Me</span>
-                    <Send className="w-4 h-4" />
-                  </button>
-                  <button type="button" onClick={downloadCvFile} className="btn-secondary w-full max-w-full sm:w-auto">
-                    <span>Download CV</span>
-                    <Download className="w-4 h-4" />
-                  </button>
-                </div>
+          <div className="relative z-30 mx-auto flex min-h-screen w-full max-w-7xl items-center px-4 py-28 sm:px-6 lg:px-8">
+            <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-3xl">
+              <p className="mb-5 font-mono text-xs font-bold uppercase tracking-[0.42em] text-primary sm:text-sm">System info</p>
+              <h1 className="cinematic-heading font-['Space_Grotesk'] text-5xl font-black uppercase leading-[0.92] tracking-normal text-white sm:text-7xl lg:text-8xl">
+                Huzaifa
+                <span className="block text-primary">Altaf.</span>
+              </h1>
+              <div className="mt-6 min-h-10">
+                <motion.p
+                  key={ROLES[currentRole]}
+                  initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  className="font-mono text-sm uppercase tracking-[0.28em] text-white/75 sm:text-lg"
+                >
+                  {ROLES[currentRole]}
+                </motion.p>
+              </div>
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-white/62 sm:text-lg">
+                I build polished Flutter apps, responsive web systems, dashboards, and backend-connected products that are ready to demo, improve, and ship.
+              </p>
 
-                <div className="flex flex-wrap items-center gap-3">
-                  {SOCIAL_LINKS.map((social) => (
-                    <SocialLink key={social.label} href={social.href} label={social.label} icon={<social.icon className="w-5 h-5" />} />
-                  ))}
-                  <SocialLink href={`mailto:${CONTACT.email}`} label="Email" icon={<Mail className="w-5 h-5" />} external={false} />
-                </div>
-              </motion.div>
+              <div className="pointer-events-auto mt-8 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
+                <button onClick={() => scrollToSection("projects")} className="btn-primary group w-full max-w-full sm:w-auto">
+                  <span>View Projects</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </button>
+                <button onClick={() => scrollToSection("contact")} className="btn-secondary w-full max-w-full border-white/15 bg-black/35 text-white hover:bg-white/10 sm:w-auto">
+                  <span>Hire Me</span>
+                  <Send className="h-4 w-4" />
+                </button>
+                <button type="button" onClick={downloadCvFile} className="btn-secondary w-full max-w-full border-white/15 bg-black/35 text-white hover:bg-white/10 sm:w-auto">
+                  <span>Download CV</span>
+                  <Download className="h-4 w-4" />
+                </button>
+              </div>
 
-              <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.16 }} className="relative mx-auto w-full min-w-0 max-w-full sm:max-w-[560px] lg:max-w-none">
-                <HeroProjectVisual />
-              </motion.div>
-            </div>
+              <div className="pointer-events-auto mt-10 flex flex-wrap items-center gap-3">
+                {SOCIAL_LINKS.map((social) => (
+                  <SocialLink key={social.label} href={social.href} label={social.label} icon={<social.icon className="h-5 w-5" />} />
+                ))}
+                <SocialLink href={`mailto:${CONTACT.email}`} label="Email" icon={<Mail className="h-5 w-5" />} external={false} />
+              </div>
+            </motion.div>
+          </div>
 
-            <section aria-label="Technology stack" className="mt-14 border-t border-border pt-8 sm:mt-20 sm:pt-10">
-              <p className="mb-6 text-center text-xs uppercase tracking-[0.16em] text-muted-foreground sm:mb-8 sm:text-sm">Tech stack</p>
-              <MovingTechRow />
-            </section>
+          <div className="pointer-events-none absolute bottom-8 right-5 z-20 hidden flex-col gap-2 text-right font-mono text-[10px] uppercase tracking-[0.24em] text-white/35 sm:flex lg:right-10">
+            <span>SYS_ID: REACT_VITE</span>
+            <span>Multan, Pakistan</span>
           </div>
         </section>
 
-        <Section id="about" eyebrow="About" title="A CS student building useful, polished software.">
-          <div className="grid gap-5 lg:grid-cols-[1fr_0.9fr] lg:gap-8">
-            <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="panel p-5 sm:p-7">
-              <p className="text-muted-foreground leading-relaxed">
-                I am a Computer Science student at NFC Institute of Engineering and Technology, Multan, focused on building products that feel clean, fast, and practical. My strongest areas are Flutter apps, React websites, Firebase integrations, APIs, and dashboards.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mt-5">
-                My work includes campus-focused Flutter apps, rental workflow automation, compiler construction, parallel computing analytics, and a 3D Unity game. I care about clean interfaces, practical features, and software that can be demonstrated confidently.
-              </p>
-              <div className="grid grid-cols-1 gap-3 mt-7 sm:grid-cols-3">
-                <Stat value="15+" label="Projects planned" />
-                <Stat value="3+" label="Years learning" />
-                <Stat value="8+" label="Core tools" />
-              </div>
-            </motion.div>
+        <LaptopFrameShowcase />
 
-            <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="panel p-5 sm:p-7">
-              <h3 className="font-['Space_Grotesk'] text-xl font-bold mb-5">Education and goals</h3>
-              <div className="space-y-5">
-                <InfoBlock label="Education" value="BS Computer Science, NFC Institute of Engineering and Technology, Multan - 2023 to present." />
-                <InfoBlock label="Current focus" value="Flutter, React, Next.js, Node.js, Firebase, MongoDB, and API integrations." />
-                <InfoBlock label="Looking for" value="Internships, freelance projects, startup collaborations, and real product experience." />
-              </div>
-            </motion.div>
+        <CinematicAbout />
+
+        <section aria-label="Technology stack" className="border-y border-border bg-background/80 py-10">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <p className="mb-8 text-center text-xs uppercase tracking-[0.24em] text-muted-foreground">Core tech stack</p>
+            <MovingTechRow />
           </div>
-        </Section>
+        </section>
 
         <Section id="education" eyebrow="Education" title="Academic background and learning journey.">
           <div className="grid gap-5 md:grid-cols-3">
@@ -966,35 +950,178 @@ function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string
 
 function HeroProjectVisual() {
   return (
-    <div className="relative">
-      <div className="absolute -left-2 top-8 z-10 hidden sm:block lg:-left-5 lg:top-14 rounded-lg border border-primary/20 bg-card/95 p-3 shadow-xl backdrop-blur-xl lg:p-4">
-        <p className="font-['Space_Grotesk'] text-2xl font-bold lg:text-3xl">15+</p>
-        <p className="text-sm text-muted-foreground">Projects</p>
-      </div>
-      <div className="absolute -right-2 top-1/2 z-10 hidden sm:block lg:-right-5 rounded-lg border border-primary/20 bg-card/95 p-3 shadow-xl backdrop-blur-xl lg:p-4">
-        <p className="font-['Space_Grotesk'] text-2xl font-bold lg:text-3xl">500+</p>
-        <p className="text-sm text-muted-foreground">Commits</p>
-      </div>
+    <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+      <motion.img
+        initial={{ opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+        src={HERO_IMAGE}
+        alt="Huzaifa Altaf professional portrait"
+        className="cinematic-hero-image"
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,rgba(59,130,246,0.18),transparent_28%),linear-gradient(90deg,#020202_0%,rgba(2,2,2,0.86)_32%,rgba(2,2,2,0.2)_68%,#020202_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#020202] via-[#020202]/72 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#020202] via-[#020202]/70 to-transparent" />
+    </div>
+  );
+}
 
-      <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-card shadow-2xl sm:aspect-[1.03]">
-        <img
-          src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1000&h=1000&fit=crop&auto=format&q=85"
-          alt="Laptop on a desk showing code in a clean developer workspace"
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+function LaptopFrameShowcase() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const [loaded, setLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-        <div className="absolute bottom-3 left-3 right-3 rounded-lg border border-border bg-card/92 p-3 backdrop-blur-xl sm:bottom-5 sm:left-5 sm:right-5 sm:p-5">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <p className="font-['Space_Grotesk'] font-bold">Huzaifa Altaf</p>
-              <p className="mt-1 break-all text-xs text-muted-foreground sm:text-sm">{CONTACT.email}</p>
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 95, damping: 28, restDelta: 0.001 });
+  const frameIndex = useTransform(smoothProgress, [0, 0.92], [0, LAPTOP_FRAME_COUNT - 1]);
+  const titleOpacity = useTransform(smoothProgress, [0.08, 0.22, 0.76, 0.9], [0, 1, 1, 0]);
+  const canvasScale = useTransform(smoothProgress, [0, 0.75, 0.95], [1, 1.05, 1.12]);
+
+  useEffect(() => {
+    let mounted = true;
+    let loadedCount = 0;
+    const images: HTMLImageElement[] = [];
+
+    for (let i = 1; i <= LAPTOP_FRAME_COUNT; i++) {
+      const img = new Image();
+      img.src = `/assets/laptop-frames/ezgif-frame-${String(i).padStart(3, "0")}.jpg`;
+      img.onload = img.onerror = () => {
+        if (!mounted) return;
+        loadedCount += 1;
+        setProgress(Math.round((loadedCount / LAPTOP_FRAME_COUNT) * 100));
+        if (loadedCount === LAPTOP_FRAME_COUNT) setLoaded(true);
+      };
+      images.push(img);
+    }
+
+    imagesRef.current = images;
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !loaded) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const drawFrame = () => {
+      const index = Math.max(0, Math.min(LAPTOP_FRAME_COUNT - 1, Math.round(frameIndex.get())));
+      const img = imagesRef.current[index];
+      if (!img || !img.complete || !img.naturalWidth) return;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const scale = Math.max(rect.width / img.width, rect.height / img.height);
+      const width = img.width * scale;
+      const height = img.height * scale;
+      const x = (rect.width - width) / 2;
+      const y = (rect.height - height) / 2;
+
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      ctx.drawImage(img, x, y, width, height);
+    };
+
+    drawFrame();
+    const unsubscribe = frameIndex.on("change", drawFrame);
+    window.addEventListener("resize", drawFrame);
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener("resize", drawFrame);
+    };
+  }, [frameIndex, loaded]);
+
+  return (
+    <section ref={containerRef} className="laptop-sequence-section relative bg-[#020202]">
+      <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
+        {!loaded && (
+          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-[#020202]">
+            <p className="mb-4 font-mono text-xs uppercase tracking-[0.42em] text-primary">Syncing laptop frames {progress}%</p>
+            <div className="h-px w-64 overflow-hidden bg-white/10">
+              <div className="h-full bg-primary transition-all" style={{ width: `${progress}%` }} />
             </div>
-            <span className="h-3 w-3 rounded-full bg-green-400 shadow-[0_0_18px_rgba(74,222,128,0.75)]" />
+          </div>
+        )}
+
+        <div className="cinematic-grid" />
+        <motion.div style={{ scale: canvasScale }} className="h-full w-full">
+          <canvas ref={canvasRef} className="h-full w-full" />
+        </motion.div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(2,2,2,0.48)_72%,#020202_100%)]" />
+
+        <motion.div style={{ opacity: titleOpacity }} className="absolute inset-x-0 top-1/2 z-20 -translate-y-1/2 px-4 text-center">
+          <h2 className="font-['Space_Grotesk'] text-4xl font-black uppercase leading-none tracking-normal text-white drop-shadow-2xl sm:text-7xl lg:text-8xl">
+            Welcome to my <span className="text-primary">Portfolio</span>
+          </h2>
+          <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.55em] text-primary sm:text-xs">Core system interface</p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function CinematicAbout() {
+  const aboutCards = [
+    { icon: Code2, title: "Languages", desc: "Flutter, Dart, React, TypeScript, Node.js, Python" },
+    { icon: GraduationCap, title: "Education", desc: "BS Computer Science at NFC IET Multan" },
+    { icon: Award, title: "Projects", desc: "Mobile apps, dashboards, web systems, and Unity work" },
+  ];
+
+  return (
+    <section id="about" className="cinematic-about relative min-h-screen overflow-hidden bg-[#020202] py-20 scroll-mt-20 sm:py-24">
+      <div className="cinematic-grid" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_34%_50%,transparent_16%,rgba(2,2,2,0.88)_58%,#020202_100%)]" />
+      <div className="about-portrait-mask pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-[46%] overflow-hidden lg:block">
+        <img src={HERO_IMAGE} alt="Huzaifa Altaf portrait" className="h-full w-full object-cover object-[50%_20%] opacity-45 grayscale" />
+      </div>
+
+      <div className="relative z-20 mx-auto flex min-h-[calc(100vh-10rem)] max-w-7xl items-center px-4 sm:px-6 lg:px-8">
+        <div className="ml-auto w-full max-w-4xl rounded-lg border border-white/8 bg-black/42 p-5 backdrop-blur-md sm:p-8 lg:w-[68%] lg:p-10">
+          <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.5em] text-primary">System info</p>
+          <h2 className="font-['Space_Grotesk'] text-4xl font-black uppercase leading-none text-white sm:text-6xl lg:text-7xl">
+            About Me<span className="text-primary">.</span>
+          </h2>
+          <p className="mt-8 max-w-3xl text-lg leading-relaxed text-white/62 sm:text-xl">
+            I am a final-year Computer Science student and developer focused on practical software: Flutter apps, responsive React interfaces, API-driven dashboards, and database-backed systems that solve real workflow problems.
+          </p>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            {aboutCards.map((item) => (
+              <div key={item.title} className="rounded-lg border border-white/10 bg-white/[0.045] p-5 transition-colors hover:border-primary/45">
+                <item.icon className="mb-5 h-6 w-6 text-primary" />
+                <h3 className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-white">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/45">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10">
+            <p className="mb-5 font-mono text-[10px] uppercase tracking-[0.38em] text-white/40">Core tech stack</p>
+            <div className="flex flex-wrap gap-3">
+              {TECH_STACK.slice(0, 8).map((tool) => (
+                <div key={tool.name} className="group relative flex h-14 w-14 items-center justify-center rounded-lg border border-white/8 bg-black/45 transition-colors hover:border-primary/50">
+                  <tool.icon className="h-6 w-6 text-white/45 transition-colors group-hover:text-primary" />
+                  <span className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 rounded-md bg-primary px-2 py-1 text-[10px] font-semibold text-white opacity-0 shadow-xl transition-opacity group-hover:opacity-100">
+                    {tool.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
