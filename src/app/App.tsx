@@ -215,6 +215,7 @@ async function downloadCvFile() {
   }
 }
 
+/* Scroll reveal utility (not used right now) */
 function Reveal({
   children,
   className,
@@ -1136,11 +1137,8 @@ function CinematicAbout() {
             ))}
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-2 text-sm text-white/62">
-            {["Flutter & IoT", "Real-time systems", "APIs & data", "React interfaces"].map((focus) => (
-              <span key={focus} className="rounded-full border border-white/10 bg-black/30 px-3 py-1.5">{focus}</span>
-            ))}
-          </div>
+          {/* Removed skill focus chips to match requested About section content. */}
+          <div className="mt-8 flex flex-wrap gap-2 text-sm text-white/62" aria-hidden="true" />
         </motion.div>
 
         <motion.div
