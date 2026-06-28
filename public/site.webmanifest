@@ -1,0 +1,17 @@
+{
+  "name": "Huzaifa Altaf — Developer Portfolio",
+  "short_name": "Huzaifa Altaf",
+  "description": "Portfolio of Huzaifa Altaf, Flutter and full-stack developer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080c16",
+  "theme_color": "#080c16",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

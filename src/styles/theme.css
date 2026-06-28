@@ -2,23 +2,23 @@
 
 :root {
   --font-size: 16px;
-  --background: #F3F4F6;
+  --background: #f7f8fb;
   --foreground: #111827;
   --card: #ffffff;
   --card-foreground: #111827;
   --popover: #ffffff;
   --popover-foreground: #111827;
-  --primary: #3B82F6;
+  --primary: #2563eb;
   --primary-foreground: #ffffff;
-  --secondary: #F3F4F6;
+  --secondary: #eef1f6;
   --secondary-foreground: #111827;
   --muted: #E5E7EB;
-  --muted-foreground: #6B7280;
+  --muted-foreground: #5f6b7c;
   --accent: #3B82F6;
   --accent-foreground: #ffffff;
   --destructive: #EF4444;
   --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+  --border: rgba(15, 23, 42, 0.12);
   --input: transparent;
   --input-background: #ffffff;
   --switch-background: #D1D5DB;
@@ -30,7 +30,7 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.5rem;
+  --radius: 0.875rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #111827;
   --sidebar-primary: #3B82F6;
@@ -42,23 +42,23 @@
 }
 
 .dark {
-  --background: #0B0F19;
-  --foreground: #FFFFFF;
-  --card: #111827;
-  --card-foreground: #FFFFFF;
+  --background: #080c16;
+  --foreground: #f8fafc;
+  --card: #101827;
+  --card-foreground: #f8fafc;
   --popover: #111827;
   --popover-foreground: #FFFFFF;
-  --primary: #3B82F6;
+  --primary: #60a5fa;
   --primary-foreground: #FFFFFF;
-  --secondary: #1F2937;
+  --secondary: #172033;
   --secondary-foreground: #FFFFFF;
   --muted: #374151;
-  --muted-foreground: #9CA3AF;
+  --muted-foreground: #aab4c4;
   --accent: #8B5CF6;
   --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.1);
+  --border: rgba(148, 163, 184, 0.18);
   --input: rgba(255, 255, 255, 0.1);
   --ring: #3B82F6;
   --font-weight-medium: 500;
@@ -128,6 +128,11 @@
     @apply bg-background text-foreground;
   }
 
+  .font-display {
+    font-family: "Segoe UI Variable Display", "Segoe UI", Inter, system-ui, sans-serif;
+    letter-spacing: -0.025em;
+  }
+
   /**
   * Default typography styles for HTML elements (h1-h4, p, label, button, input).
   * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
@@ -136,10 +141,33 @@
   html {
     font-size: var(--font-size);
     overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
 
   body {
     overflow-x: hidden;
+    min-width: 320px;
+    font-family: Inter, "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  a,
+  input,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--primary) 70%, white);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 28%, transparent);
   }
 
   img,
@@ -194,11 +222,13 @@
 
 @layer components {
   .panel {
-    @apply rounded-lg border border-border bg-card/80 shadow-sm backdrop-blur-xl;
+    @apply rounded-xl border border-border bg-card/90 shadow-sm backdrop-blur-xl;
+    box-shadow: 0 18px 55px rgba(15, 23, 42, 0.06);
   }
 
   .btn-primary {
-    @apply inline-flex min-h-11 max-w-full items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5;
+    @apply inline-flex min-h-11 max-w-full items-center justify-center gap-2 overflow-hidden rounded-lg bg-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5;
+    box-shadow: 0 12px 26px color-mix(in srgb, var(--primary) 22%, transparent);
   }
 
   .btn-secondary {
@@ -207,6 +237,24 @@
 
   .form-input {
     @apply w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20;
+  }
+
+  .skip-link {
+    position: fixed;
+    left: 1rem;
+    top: 0.75rem;
+    z-index: 100;
+    transform: translateY(-160%);
+    border-radius: 0.65rem;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    padding: 0.7rem 1rem;
+    font-weight: 700;
+    transition: transform 160ms ease;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
   }
 
   .marquee-track {
@@ -224,7 +272,7 @@
   }
 
   .marquee-card {
-    @apply flex items-center justify-center gap-3 rounded-lg border border-border bg-card/80 px-5 py-4 backdrop-blur-xl transition-colors hover:border-primary/50;
+    @apply flex items-center justify-center gap-3 rounded-xl border border-border bg-card/80 px-4 py-4 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/50;
   }
 
   .cinematic-home,
@@ -573,9 +621,7 @@
 }
 
 .hero-redesign-section {
-  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.18), transparent 60%),
-              radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.12), transparent 55%),
-              #05060f;
+  background: #0b0b0c;
   color: white;
 }
 
@@ -671,6 +717,46 @@
 /* Role text color */
 .hero-role-text {
   color: rgba(255,255,255,0.72);
+}
+
+.hero-role-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 20ch;
+  white-space: nowrap;
+}
+
+.hero-role-typed {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.9);
+}
+
+.hero-typewriter-cursor {
+  width: 1px;
+  height: 1.2em;
+  background: rgba(255,255,255,0.8);
+  border-radius: 999px;
+  animation: blink-cursor 1.2s steps(2, end) infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-typewriter-cursor,
+  .hero-role-wrapper,
+  .hero-role-typed {
+    animation: none !important;
+  }
 }
 
 /* Buttons */
@@ -901,7 +987,7 @@
 /* Scroll indicator */
 .hero-scroll-indicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: -0rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
@@ -1021,3 +1107,154 @@
   backdrop-filter: blur(20px);
   box-shadow: 0 8px 28px rgba(0,0,0,0.35);
 }
+
+.hero-portrait-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  isolation: isolate;
+}
+
+.hero-portrait-stage::after {
+  content: none;
+}
+
+.hero-cutout-light {
+  position: absolute;
+  inset: 5% 0 1%;
+  z-index: -1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 52% 26%, rgba(96, 165, 250, 0.22), transparent 26%),
+    radial-gradient(ellipse at 54% 66%, rgba(99, 102, 241, 0.18), transparent 54%);
+  filter: blur(20px);
+}
+
+.hero-portrait-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  filter: contrast(1.04);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 12%, #000 27%, #000 100%),
+    linear-gradient(to bottom, transparent 0%, #000 13%, #000 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 12%, #000 27%, #000 100%),
+    linear-gradient(to bottom, transparent 0%, #000 13%, #000 100%);
+  mask-composite: intersect;
+}
+
+.hero-redesign-section .hero-blob,
+.hero-redesign-section .hero-grid-overlay,
+.hero-redesign-section .hero-particles {
+  display: none;
+}
+
+.about-atmosphere-no-portrait {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.13), transparent 32%),
+    radial-gradient(circle at 88% 82%, rgba(139, 92, 246, 0.1), transparent 34%);
+}
+
+/* Production polish */
+#projects,
+#certificates,
+#contact {
+  background: color-mix(in srgb, var(--secondary) 42%, transparent);
+  border-block: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+.hero-redesign-section .hero-btn-primary,
+.hero-redesign-section .hero-btn-secondary {
+  min-height: 3rem;
+}
+
+.hero-redesign-section .hero-btn-primary {
+  color: #fff;
+}
+
+.hero-redesign-section .hero-btn-secondary {
+  color: rgba(255,255,255,0.9);
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+@media (max-width: 639px) {
+  .hero-redesign-section {
+    min-height: 100svh;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .hero-redesign-section > .max-w-7xl {
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+  }
+
+  .hero-redesign-section h1 {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .hero-redesign-section .hero-btn-primary,
+  .hero-redesign-section .hero-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-scroll-indicator {
+    display: none;
+  }
+}
+
+/* Scroll reveal (IntersectionObserver + CSS transforms) */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0) scale(0.99);
+  transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1), transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.reveal--stagger {
+  transition-delay: calc(var(--reveal-index, 0) * 60ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-particles,
+  .hero-blob {
+    display: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+

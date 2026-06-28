@@ -4,14 +4,35 @@ import reactHooksPlugin from "eslint-plugin-react-hooks";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 
 export default [
+  {
+    ignores: [
+      ".codex-tmp/**",
+      "dist/**",
+      "node_modules/**",
+      "Portfolio-main/**",
+      "public/**",
+      "scripts/**",
+      "src/app/components/figma/**",
+      "src/app/components/ui/**",
+      "src/imports/**",
+    ],
+  },
   js.configs.recommended,
   {
-    ignores: ["dist", "node_modules"],
-  },
-  {
-    files: ["**/*.{ts,tsx,js,jsx}"],
+    files: ["src/**/*.{ts,tsx}", "vite.config.ts"],
     languageOptions: {
       parser: tseslint.parser,
+      globals: {
+        document: "readonly",
+        fetch: "readonly",
+        HTMLButtonElement: "readonly",
+        HTMLFormElement: "readonly",
+        HTMLElement: "readonly",
+        KeyboardEvent: "readonly",
+        React: "readonly",
+        window: "readonly",
+        __dirname: "readonly",
+      },
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
