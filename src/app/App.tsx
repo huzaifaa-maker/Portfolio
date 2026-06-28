@@ -32,7 +32,7 @@ import {
 } from "lucide-react";
 
 const CONTACT = {
-  email: "huzaifaltaf15@icloud.com",
+  email: "huzaifaaltaf15@gmail.com",
   github: "https://github.com/huzaifaa-maker",
   linkedin: "https://www.linkedin.com/in/huzaifa-altaf-45227527b",
   instagram: "https://www.instagram.com/huxaifa.here",

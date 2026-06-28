@@ -28,7 +28,7 @@ BORDER = colors.HexColor("#BFDBFE")
 
 LINKS = {
     "portfolio": "https://huzaifa-altaf-portfolio.vercel.app",
-    "email": "mailto:huzaifaltaf15@icloud.com",
+    "email": "mailto:huzaifaaltaf15@gmail.com",
     "whatsapp": "https://wa.me/923195639447",
     "github": "https://github.com/huzaifaa-maker",
     "linkedin": "https://www.linkedin.com/in/huzaifa-altaf-45227527b",
@@ -197,7 +197,7 @@ def header():
         Table([[""]], colWidths=[88 * mm], rowHeights=[0.75], style=TableStyle([("BACKGROUND", (0, 0), (-1, -1), BLUE)])),
         Paragraph("Full Stack Developer | Flutter App Developer | Website Developer", styles["Role"]),
         Paragraph(
-            f"Email: {a('huzaifaltaf15@icloud.com', LINKS['email'])} | WhatsApp: {a('+92 319 5639447', LINKS['whatsapp'])}",
+            f"Email: {a('huzaifaaltaf15@gmail.com', LINKS['email'])} | WhatsApp: {a('+92 319 5639447', LINKS['whatsapp'])}",
             styles["Contact"],
         ),
         Paragraph(
